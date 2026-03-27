@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.conf import settings
 from core.models import Service, Product
 
 
@@ -7,7 +6,6 @@ class Command(BaseCommand):
     help = 'Seed services and products with real images'
 
     def handle(self, *args, **kwargs):
-        # Services
         services_data = [
             {'name': 'Press-On Nails', 'description': 'Ready-made nail sets in stunning designs. Pick your style, apply at home, and slay all day. Ships worldwide.', 'icon': '\U0001f485', 'cta_text': 'Shop Now', 'is_featured': True, 'order': 1},
             {'name': 'Custom Nail Sets', 'description': 'Your vision, our craft. Tell Thelma your dream design and get a one-of-a-kind set made just for you.', 'icon': '\u2728', 'cta_text': 'Order Custom', 'is_featured': True, 'order': 2},
@@ -20,7 +18,6 @@ class Command(BaseCommand):
                     setattr(obj, key, val)
                 obj.save()
 
-        # Products with images
         products_data = [
             {'name': 'Pink Leopard Set', 'image_file': 'pink-leopard-set.jpeg', 'description': 'Soft pink press-ons with chic leopard print accents at the base. Sweet meets fierce in this bestselling set.', 'price': 5000, 'category': 'press_on', 'is_featured': True, 'is_available': True, 'duration': '2-3 weeks', 'best_for': 'Daily wear, brunch dates'},
             {'name': 'Cherry Valentine', 'image_file': 'cherry-valentine.jpeg', 'description': 'Deep cherry red stilettos mixed with pink French tips and heart-shaped accents. Love in every detail.', 'price': 7000, 'category': 'press_on', 'is_featured': True, 'is_available': True, 'duration': '2-3 weeks', 'best_for': 'Valentines, date nights'},
@@ -40,20 +37,15 @@ class Command(BaseCommand):
             {'name': 'Tropical Mix', 'image_file': 'tropical-mix.jpeg', 'description': 'Bold mix of mauve, orange, floral and leopard details. For the woman who wants all the vibes in one set.', 'price': 7000, 'category': 'custom', 'is_featured': True, 'is_available': True, 'duration': '2-3 weeks', 'best_for': 'Festivals, summer'},
         ]
 
-        media_src = settings.MEDIA_ROOT / 'products'
         for p in products_data:
             image_file = p.pop('image_file')
-            image_path = media_src / image_file
-
             obj, created = Product.objects.get_or_create(name=p['name'], defaults=p)
             if not created:
                 for key, val in p.items():
                     if key != 'name':
                         setattr(obj, key, val)
+            # Store path relative to media root - on Vercel we serve from static instead
+            obj.image.name = f'products/{image_file}'
+            obj.save()
 
-            # Assign image if file exists and product doesn't have one yet or needs update
-            if image_path.exists():
-                obj.image.name = f'products/{image_file}'
-                obj.save()
-
-        self.stdout.write(self.style.SUCCESS(f'Seeded {len(services_data)} services and {len(products_data)} products with images.'))
+        self.stdout.write(self.style.SUCCESS(f'Seeded {len(services_data)} services and {len(products_data)} products.'))

@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load product_tags %}
 
 {% block title %}Collections — Pressed by Thelma{% endblock %}
 
@@ -27,13 +28,8 @@
             {% for product in products %}
             <a href="{% url 'product_detail' product.slug %}" class="product-card" data-animate="fade-up">
                 <div class="product-card-img">
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
-                    {% else %}
-                    <div class="product-card-placeholder">
-                        <span>{{ product.name|first }}</span>
-                    </div>
-                    {% endif %}
+                    {% product_image_url product as img_url %}
+                    <img src="{{ img_url }}" alt="{{ product.name }}" loading="lazy">
                     <div class="product-card-overlay">
                         <span>View Details</span>
                     </div>
