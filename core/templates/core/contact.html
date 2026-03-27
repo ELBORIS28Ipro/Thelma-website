@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Contact — Pressed by Thelma{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <span class="section-eyebrow">Get in Touch</span>
+        <h1 class="page-hero-title">Book Your Set</h1>
+        <p class="page-hero-desc">Ready to look amazing? Let's make it happen.</p>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-form-side" data-animate="fade-up">
+                <div class="contact-form-card">
+                    <h2>Send a Request</h2>
+                    <p>Fill out the form and Thelma will get back to you shortly.</p>
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                            <span class="form-error">{{ field.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn--primary btn--lg btn--full">
+                            Send Request
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="contact-info-side" data-animate="fade-up">
+                <div class="contact-whatsapp-card">
+                    <div class="contact-whatsapp-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.574-1.47A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.18-.686-5.826-1.852l-.418-.312-2.714.872.727-2.654-.272-.432A9.78 9.78 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818S21.818 6.577 21.818 12s-4.395 9.818-9.818 9.818z"/></svg>
+                    </div>
+                    <h3>Fastest Response</h3>
+                    <p>Message Thelma directly on WhatsApp for instant booking.</p>
+                    <a href="{{ social_links.whatsapp_booking }}" class="btn btn--whatsapp btn--full" target="_blank" rel="noopener">
+                        Chat on WhatsApp
+                    </a>
+                </div>
+
+                <div class="contact-details-card">
+                    <div class="contact-item">
+                        <span class="contact-item-label">Phone</span>
+                        <a href="tel:{{ social_links.phone }}">{{ social_links.phone }}</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-label">Email</span>
+                        <a href="mailto:{{ social_links.email }}">{{ social_links.email }}</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-label">Location</span>
+                        <span>Buea, Cameroon</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-label">Follow Us</span>
+                        <div class="contact-social-links">
+                            <a href="{{ social_links.instagram }}" target="_blank" rel="noopener">Instagram</a>
+                            <a href="{{ social_links.tiktok }}" target="_blank" rel="noopener">TikTok</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

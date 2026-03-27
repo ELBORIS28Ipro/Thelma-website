@@ -1,0 +1,247 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Pressed by Thelma — Premium Press-On Nails | Shop Now{% endblock %}
+{% block meta_description %}Shop handcrafted press-on nails from Buea, Cameroon. Custom & ready-made sets. Ships internationally. Order via WhatsApp.{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-inner">
+        <div class="hero-content" data-animate="fade-up">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Handcrafted in Cameroon &middot; Ships Worldwide
+            </div>
+            <h1 class="hero-title">
+                Your Nails,<br>
+                <em>Your Way.</em>
+            </h1>
+            <p class="hero-subtitle">Premium press-on nails &amp; custom sets. Affordable luxury, delivered to your door. From busy to bougee.</p>
+            <div class="hero-actions">
+                <a href="{% url 'showroom' %}" class="btn btn--primary btn--glow">
+                    <span>Shop Collections</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="{{ social_links.whatsapp_booking }}" class="btn btn--whatsapp" target="_blank" rel="noopener">Order on WhatsApp</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <strong>200+</strong>
+                    <span>Happy Clients</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <strong>500+</strong>
+                    <span>Sets Sold</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <strong>XAF 5k</strong>
+                    <span>Starting Price</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual" data-animate="fade-left">
+            <div class="hero-photo">
+                <img src="{% static 'img/thelma-hero.jpeg' %}" alt="Thelma — Nail Artist & Founder">
+                <div class="hero-photo-overlay"></div>
+            </div>
+            <div class="hero-floating-tag hero-floating-tag--1">Handcrafted</div>
+            <div class="hero-floating-tag hero-floating-tag--2">Ships Worldwide</div>
+            <div class="hero-floating-tag hero-floating-tag--3">From XAF 5,000</div>
+        </div>
+    </div>
+    <div class="hero-scroll-indicator">
+        <span>Scroll to shop</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+    <div class="marquee-track">
+        <span>New Collections Available</span>
+        <span class="marquee-dot"></span>
+        <span>Free Nail Glue Included</span>
+        <span class="marquee-dot"></span>
+        <span>Ships Worldwide</span>
+        <span class="marquee-dot"></span>
+        <span>Order via WhatsApp</span>
+        <span class="marquee-dot"></span>
+        <span>Custom Sets Available</span>
+        <span class="marquee-dot"></span>
+        <span>New Collections Available</span>
+        <span class="marquee-dot"></span>
+        <span>Free Nail Glue Included</span>
+        <span class="marquee-dot"></span>
+        <span>Ships Worldwide</span>
+        <span class="marquee-dot"></span>
+    </div>
+</div>
+
+<!-- BESTSELLERS — Big product showcase -->
+<section class="collections" id="shop">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Shop Now</span>
+            <h2 class="section-title">Bestselling Sets</h2>
+            <p class="section-desc">Handcrafted with love. Each set includes nail glue, a mini file, and application instructions.</p>
+        </div>
+        <div class="products-grid products-grid--featured">
+            {% for product in products %}
+            <a href="{% url 'product_detail' product.slug %}" class="product-card" data-animate="fade-up">
+                <div class="product-card-img">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                    {% else %}
+                    <div class="product-card-placeholder"><span>{{ product.name|first }}</span></div>
+                    {% endif %}
+                    <div class="product-card-overlay">
+                        <span>View &amp; Order</span>
+                    </div>
+                    {% if product.category == 'custom' %}
+                    <span class="product-card-badge">Custom</span>
+                    {% endif %}
+                </div>
+                <div class="product-card-body">
+                    <span class="product-card-category">{{ product.get_category_display }}</span>
+                    <h3>{{ product.name }}</h3>
+                    <div class="product-card-footer">
+                        <span class="product-card-price">{{ product.currency }} {{ product.price|floatformat:0 }}</span>
+                        <span class="product-card-cta">Order &rarr;</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="section-action" data-animate="fade-up">
+            <a href="{% url 'showroom' %}" class="btn btn--primary btn--lg">
+                View All {{ all_products.count }} Sets
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS — Build trust for online buyers -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">How It Works</span>
+            <h2 class="section-title">3 Easy Steps</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step" data-animate="fade-up">
+                <div class="step-number">01</div>
+                <h3>Choose Your Set</h3>
+                <p>Browse our collections or describe your dream design for a custom set.</p>
+            </div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step" data-animate="fade-up">
+                <div class="step-number">02</div>
+                <h3>Order via WhatsApp</h3>
+                <p>Message Thelma with your choice. She'll confirm sizing, price, and delivery.</p>
+            </div>
+            <div class="step-arrow">&rarr;</div>
+            <div class="step" data-animate="fade-up">
+                <div class="step-number">03</div>
+                <h3>Apply &amp; Slay</h3>
+                <p>Receive your set with glue &amp; instructions. Apply in minutes. Look amazing for weeks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">What We Offer</span>
+            <h2 class="section-title">Our Services</h2>
+        </div>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card" data-animate="fade-up">
+                <div class="service-card-number">0{{ forloop.counter }}</div>
+                <div class="service-card-icon">{{ service.icon }}</div>
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+                <a href="{% if forloop.counter == 1 %}{% url 'showroom' %}{% else %}{% url 'contact' %}{% endif %}" class="service-card-link">
+                    {{ service.cta_text }}
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- WHY US — Trust signals for international buyers -->
+<section class="why-us">
+    <div class="container">
+        <div class="why-us-grid">
+            <div class="why-us-text" data-animate="fade-up">
+                <span class="section-eyebrow">Why Pressed by Thelma</span>
+                <h2 class="section-title">Crafted for<br><em>Perfection</em></h2>
+                <p>Every set goes through a meticulous handcrafting process — from shaping to painting to packaging. You're not buying nails, you're buying wearable art.</p>
+                <div class="why-us-cta">
+                    <a href="{% url 'about' %}" class="btn btn--outline">Read Our Story</a>
+                </div>
+            </div>
+            <div class="why-us-features" data-animate="fade-up">
+                <div class="feature">
+                    <div class="feature-icon">01</div>
+                    <div class="feature-text">
+                        <h4>Reusable Sets</h4>
+                        <p>With proper care, wear your sets multiple times. Real value.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">02</div>
+                    <div class="feature-text">
+                        <h4>Lasts 2-3 Weeks</h4>
+                        <p>Professional-grade adhesive included. Stays put through real life.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">03</div>
+                    <div class="feature-text">
+                        <h4>Custom Sizing</h4>
+                        <p>Every set fitted to your nail measurements for a perfect, comfortable fit.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">04</div>
+                    <div class="feature-text">
+                        <h4>Ships Worldwide</h4>
+                        <p>Order from anywhere. We deliver across Cameroon and internationally.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA — Strong sales close -->
+<section class="cta">
+    <div class="cta-glow"></div>
+    <div class="container">
+        <div class="cta-content" data-animate="fade-up">
+            <span class="section-eyebrow section-eyebrow--light">Ready to Order?</span>
+            <h2>Get Your Set Today</h2>
+            <p>Message Thelma on WhatsApp to place your order. Custom requests welcome!</p>
+            <div class="cta-actions">
+                <a href="{{ social_links.whatsapp_booking }}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.574-1.47A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.18-.686-5.826-1.852l-.418-.312-2.714.872.727-2.654-.272-.432A9.78 9.78 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818S21.818 6.577 21.818 12s-4.395 9.818-9.818 9.818z"/></svg>
+                    Order on WhatsApp
+                </a>
+                <a href="{% url 'showroom' %}" class="btn btn--outline btn--outline-light btn--lg">Browse All Sets</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}About — Pressed by Thelma{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <span class="section-eyebrow">Our Story</span>
+        <h1 class="page-hero-title">About Thelma</h1>
+        <p class="page-hero-desc">The hands behind every set.</p>
+    </div>
+</section>
+
+<section class="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-portrait" data-animate="fade-up">
+                <div class="about-portrait-frame">
+                    <img src="{% static 'img/thelma-portrait.jpeg' %}" alt="Thelma — Founder of Pressed by Thelma" class="about-portrait-img">
+                </div>
+                <div class="about-portrait-accent"></div>
+            </div>
+            <div class="about-story" data-animate="fade-up">
+                <h2>From Busy to Bougee...</h2>
+                <p class="about-lead">Thelma is a 22-year-old entrepreneur and University of Buea graduate who turned her passion for nail art into a thriving brand.</p>
+                <p>With a background in <strong>accounting</strong>, she brings the same precision and attention to detail from the classroom to every nail set she creates. What started as a hobby has grown into <strong>Pressed by Thelma</strong> &mdash; a brand trusted by hundreds of clients across Cameroon.</p>
+                <p>Based in <strong>Buea</strong>, Thelma believes that every woman deserves to feel beautiful, confident, and put-together &mdash; no matter how busy life gets. That's why she created press-on nails that are <em>easy to apply, long-lasting, and absolutely stunning</em>.</p>
+
+                <div class="about-credentials">
+                    <h3>Background</h3>
+                    <div class="credential-list">
+                        <div class="credential">
+                            <span class="credential-marker"></span>
+                            <div>
+                                <strong>B.Sc. Accounting</strong>
+                                <span>University of Buea</span>
+                            </div>
+                        </div>
+                        <div class="credential">
+                            <span class="credential-marker"></span>
+                            <div>
+                                <strong>Certified Nail Technician</strong>
+                                <span>Professional Training</span>
+                            </div>
+                        </div>
+                        <div class="credential">
+                            <span class="credential-marker"></span>
+                            <div>
+                                <strong>Entrepreneurship Training</strong>
+                                <span>Various Programs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if gallery %}
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-eyebrow">Gallery</span>
+            <h2 class="section-title">Our Work</h2>
+        </div>
+        <div class="gallery-grid">
+            {% for photo in gallery %}
+            <div class="gallery-item" data-animate="fade-up">
+                <img src="{{ photo.image.url }}" alt="{{ photo.caption }}" loading="lazy">
+                {% if photo.caption %}
+                <div class="gallery-caption">{{ photo.caption }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="cta">
+    <div class="cta-glow"></div>
+    <div class="container">
+        <div class="cta-content" data-animate="fade-up">
+            <h2>Ready to Get Your Nails Done?</h2>
+            <p>Book an appointment with Thelma today.</p>
+            <div class="cta-actions">
+                <a href="{{ social_links.whatsapp_booking }}" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.574-1.47A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.17 0-4.18-.686-5.826-1.852l-.418-.312-2.714.872.727-2.654-.272-.432A9.78 9.78 0 012.182 12c0-5.423 4.395-9.818 9.818-9.818S21.818 6.577 21.818 12s-4.395 9.818-9.818 9.818z"/></svg>
+                    Book on WhatsApp
+                </a>
+                <a href="{% url 'contact' %}" class="btn btn--outline btn--outline-light btn--lg">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
