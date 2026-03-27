@@ -9,7 +9,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-temporary-key-do-not-use-in-prod')
-DEBUG = config('DEBUG', default=True, cast=bool) # TEMPORARY: Force Debug true
+DEBUG = True # TEMPORARY: Force Debug true
 ALLOWED_HOSTS = ['*']  # Explicitly allow Vercel domains
 
 INSTALLED_APPS = [
@@ -59,7 +59,7 @@ WSGI_APPLICATION = 'thelma_studio.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default=config('POSTGRES_URL', default=f'sqlite:///{BASE_DIR / "db.sqlite3"}'))
+        default=config('DATABASE_URL', default=config('POSTGRES_URL', default='sqlite:////tmp/db.sqlite3'))
     )
 }
 
