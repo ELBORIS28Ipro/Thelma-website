@@ -8,8 +8,8 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-temporary-key-do-not-use-in-prod')
+DEBUG = config('DEBUG', default=True, cast=bool) # TEMPORARY: Force Debug true
 ALLOWED_HOSTS = ['*']  # Explicitly allow Vercel domains
 
 INSTALLED_APPS = [
